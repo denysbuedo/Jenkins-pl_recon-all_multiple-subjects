@@ -13,9 +13,9 @@ node {
     }
     
     stage('DATA PROCESSING (Freesurfer)'){
+        File subjectFile = new File("$JENKINS_HOME/jobs/$JOB_NAME/builds/$BUILD_NUMBER/subjectsList.txt")
+        def subjects = subjectFile.readLines() 
         sshagent(['fsf_id_rsa']) {
-            File subjectFile = new File('$JENKINS_HOME/jobs/$JOB_NAME/builds/$BUILD_NUMBER/subjectsList.txt')
-            def subjects = subjectFile.readLines()    
             for (subject in subjects) {
                 def currentSubject = "${subject}" 
                 build job: 'jb_recon-all_simple', parameters: [string(name: 'Subject_dir', value: "${Dataset}"), string(name: 'Subject', value: "${currentSubject}")], quietPeriod: 1, wait: false

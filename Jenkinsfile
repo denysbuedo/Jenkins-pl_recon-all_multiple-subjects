@@ -9,7 +9,7 @@ node {
             sh "ssh root@192.168.17.129 chmod +x /usr/local/freesurfer/subjects/jenkins_multiple-subjects.sh"
             sh "ssh root@192.168.17.129 /usr/local/freesurfer/subjects/jenkins_multiple-subjects.sh list $Name $Dataset"
             sh "scp root@192.168.17.129:$Dataset/subjectsList.txt $JENKINS_HOME/jobs/$JOB_NAME/builds/BUILD_NUMBER"
-            File subjectFile = new File('$JENKINS_HOME/jobs/$JOB_NAME/builds/BUILD_NUMBER/subjectsList.txt')
+            File subjectFile = new File('$JENKINS_HOME/jobs/$JOB_NAME/builds/$BUILD_ID/subjectsList.txt')
         }
     }
     
